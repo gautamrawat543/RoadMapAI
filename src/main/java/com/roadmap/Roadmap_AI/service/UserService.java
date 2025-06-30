@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -42,5 +43,20 @@ public class UserService {
 
     public List<User> getAllUser(){
        return userRepo.findAll();
+    }
+
+    public String deleteUserById(Integer id){
+        if(userRepo.findById(id).isPresent()){
+
+            userRepo.deleteById(id);
+            return "User with id "+id+" deleted.";
+        }else{
+
+        return  "User not found";
+        }
+    }
+
+    public User getUserByEmail(String email){
+        return userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
