@@ -1,5 +1,6 @@
 package com.roadmap.Roadmap_AI.security;
 
+import com.roadmap.Roadmap_AI.service.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +21,19 @@ public class SecurityConfig  {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    OAuth2Service oAuth2Service;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/auth/**", "/oauth2/**", "/login/**").permitAll()
+                        .anyRequest().authenticated()).oauth2Login(oauth -> oauth
+//                        .loginPage("/oauth2/authorize") // optional
+                        .successHandler(oAuth2Service)
+                )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

@@ -43,4 +43,15 @@ public class UserService {
     public List<User> getAllUser(){
        return userRepo.findAll();
     }
+
+    public String deleteUserById(Integer id){
+        if(userRepo.findById(id).isPresent()){
+
+            userRepo.deleteById(id);
+            return "User with id "+id+" deleted.";
+        }else{
+
+        return  "User not found";
+        }
+    }
 }
