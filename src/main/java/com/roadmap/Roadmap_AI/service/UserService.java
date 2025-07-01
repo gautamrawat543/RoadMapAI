@@ -1,6 +1,7 @@
 package com.roadmap.Roadmap_AI.service;
 
 
+import com.roadmap.Roadmap_AI.dto.GoogleUserInfo;
 import com.roadmap.Roadmap_AI.entity.User;
 import com.roadmap.Roadmap_AI.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +60,18 @@ public class UserService {
     public User getUserByEmail(String email){
         return userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    public User findOrCreateUserFromGoogle(GoogleUserInfo googleUser) {
+        return userRepo.findByEmail(googleUser.getEmail()).orElseGet(() -> {
+            User newUser = new User();
+            newUser.setEmail(googleUser.getEmail());
+            newUser.setName(googleUser.getName());
+
+
+            newUser.setPasswordHash(passwordEncoder.encode(googleUser.getEmail()));
+
+            return userRepo.save(newUser);
+        });
+    }
+
 }

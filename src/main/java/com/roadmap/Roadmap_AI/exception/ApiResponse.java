@@ -1,4 +1,4 @@
-package com.roadmap.Roadmap_AI.dto;
+package com.roadmap.Roadmap_AI.exception;
 
 public class ApiResponse<T> {
     private String status;
