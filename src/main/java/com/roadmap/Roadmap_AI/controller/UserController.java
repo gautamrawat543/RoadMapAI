@@ -1,15 +1,13 @@
 package com.roadmap.Roadmap_AI.controller;
 
-import com.roadmap.Roadmap_AI.dto.ApiResponse;
+import com.roadmap.Roadmap_AI.exception.ApiResponse;
 import com.roadmap.Roadmap_AI.entity.User;
 import com.roadmap.Roadmap_AI.service.JwtService;
 import com.roadmap.Roadmap_AI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,7 +22,18 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody Map<String, String> req) {
         try {
-            User user = userService.signup(req.get("name"), req.get("email"), req.get("password"));
+            String name = req.get("name");
+            String email = req.get("email");
+            String password = req.get("password");
+
+            if (name == null || name.trim().isEmpty() ||
+                    email == null || email.trim().isEmpty() ||
+                    password == null || password.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(
+                        new ApiResponse<>("error", "Name, email, and password are required", null)
+                );
+            }
+            User user = userService.signup(name, email,password);
             Map<String, Object> userData = Map.of(
                     "id", user.getId(),
                     "name", user.getName(),
