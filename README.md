@@ -88,7 +88,7 @@ Your app will start on `http://localhost:8080`
    - Sample Body:
      ```json
      {
-       "email":"gautam@mail.com"
+       "email":"gautam@mail.com",
        "name": "gautam",
        "password": "securepassword"
      }
@@ -141,12 +141,6 @@ Your app will start on `http://localhost:8080`
 - **Password Encryption** using `BCryptPasswordEncoder`
 - **Stateless Authentication** with JWT
 - **Custom Filters & Handlers** for token parsing and exception handling
-
----
-
-## 📃 License
-
-This project is licensed under the MIT License.
 
 ---
 
