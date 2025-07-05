@@ -49,7 +49,7 @@ Follow these steps to set up and run the project on your local machine.
 #### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/gautamrawat543/Roadmap.AI.git
+git clone https://github.com/gautamrawat543/RoadMapAI.git
 cd Roadmap.AI
 ```
 
@@ -59,7 +59,7 @@ Open `src/main/resources/application.properties` and set your database and JWT s
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/roadmap_ai
-spring.datasource.username=root
+spring.datasource.username=your_username
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 
@@ -88,7 +88,8 @@ Your app will start on `http://localhost:8080`
    - Sample Body:
      ```json
      {
-       "username": "gautam",
+       "email":"gautam@mail.com"
+       "name": "gautam",
        "password": "securepassword"
      }
      ```
@@ -98,7 +99,7 @@ Your app will start on `http://localhost:8080`
    - Sample Body:
      ```json
      {
-       "username": "gautam",
+       "email": "gautam@mail.com",
        "password": "securepassword"
      }
      ```
